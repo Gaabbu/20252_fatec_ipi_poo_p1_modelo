@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Policial{
+public class Policial {
     private int energia;
     private String nome;
     private int quantidadeGranadas;
@@ -8,7 +8,7 @@ public class Policial{
 
     Random gerarNumero = new Random();
 
-    //Construtor
+    // Construtor
     public Policial(String nome, int energia, int quantidadeGranadas) {
         setNome(nome);
         setEnergia(energia);
@@ -16,9 +16,19 @@ public class Policial{
         gerarArmamento();
     }
 
-    //Setters
+    // Getter
+    public int getEnergia() {
+        return this.energia;
+    }
+
+    public String getArmamento() {
+        return this.armamento;
+    }
+
+    // Setters
     public void setEnergia(int energia) {
-        if (energia >= 0 && energia <= 10) this.energia = energia;
+        if (energia >= 0 && energia <= 10)
+            this.energia = energia;
     }
 
     public void setNome(String nome) {
@@ -26,13 +36,14 @@ public class Policial{
     }
 
     public void setQuantidadeGranadas(int quantidadeGranadas) {
-        if (quantidadeGranadas >= 0 && quantidadeGranadas <= 5) this.quantidadeGranadas = quantidadeGranadas;
+        if (quantidadeGranadas >= 0 && quantidadeGranadas <= 5)
+            this.quantidadeGranadas = quantidadeGranadas;
     }
 
-    //Random
+    // Random
     public void gerarArmamento() {
         int opcaoArmas = gerarNumero.nextInt(3);
-        switch(opcaoArmas) {
+        switch (opcaoArmas) {
             case 0:
                 this.armamento = "Faca";
                 break;
@@ -45,7 +56,7 @@ public class Policial{
         }
     }
 
-    //Comportamentos
+    // Comportamentos
     public void desarmarBomba() {
         System.out.println(nome + " desarmando bomba");
     }
@@ -56,7 +67,7 @@ public class Policial{
             System.out.println(nome + " lançou granada (restam " + quantidadeGranadas + ")");
         } else {
             System.out.println(nome + " tentou lançar granada, mas não tem");
-            }
+        }
     }
 
     public void atacar() {
@@ -68,8 +79,8 @@ public class Policial{
     }
 
     @Override
-    public String toString(){
-        return String.format("e: %d, f: %d, s: %s",
-        energia, quantidadeGranadas, armamento);
+    public String toString() {
+        return String.format("Energia: %d, Granadas: %d, Arma: %s",
+                energia, quantidadeGranadas, armamento);
     }
 }

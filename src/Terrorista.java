@@ -8,7 +8,7 @@ public class Terrorista {
 
     Random gerarNumero = new Random();
 
-    //Construtor
+    // Construtor
     public Terrorista(String nome, int energia, int quantidadeGranadas) {
         setNome(nome);
         setEnergia(energia);
@@ -16,9 +16,19 @@ public class Terrorista {
         gerarArmamento();
     }
 
-    //Setters
+    // Getter
+    public int getEnergia() {
+        return this.energia;
+    }
+
+    public String getArmamento() {
+        return this.armamento;
+    }
+
+    // Setters
     public void setEnergia(int energia) {
-        if (energia >= 0 && energia <= 10) this.energia = energia;
+        if (energia >= 0 && energia <= 10)
+            this.energia = energia;
     }
 
     public void setNome(String nome) {
@@ -26,13 +36,14 @@ public class Terrorista {
     }
 
     public void setQuantidadeGranadas(int quantidadeGranadas) {
-        if (quantidadeGranadas >= 0 && quantidadeGranadas <= 5) this.quantidadeGranadas = quantidadeGranadas;
+        if (quantidadeGranadas >= 0 && quantidadeGranadas <= 5)
+            this.quantidadeGranadas = quantidadeGranadas;
     }
 
-    //Random
+    // Random
     public void gerarArmamento() {
         int opcaoArmas = gerarNumero.nextInt(3);
-        switch(opcaoArmas) {
+        switch (opcaoArmas) {
             case 0:
                 this.armamento = "Faca";
                 break;
@@ -45,12 +56,11 @@ public class Terrorista {
         }
     }
 
-
     // Comportamentos
     public void plantarBomba() {
         System.out.println(nome + " plantando bomba");
     }
-    
+
     public void lancarGranada() {
         if (quantidadeGranadas > 0) {
             quantidadeGranadas--;
@@ -69,8 +79,8 @@ public class Terrorista {
     }
 
     @Override
-    public String toString(){
-        return String.format("e: %d, f: %d, s: %s",
-        energia, quantidadeGranadas, armamento);
+    public String toString() {
+        return String.format("Energia: %d, Granadas: %d, Arma: %s",
+                energia, quantidadeGranadas, armamento);
     }
 }
