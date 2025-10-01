@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -9,32 +10,29 @@ public class App {
         Terrorista terrorista = new Terrorista("Fred", 10, 5);
         Policial policial = new Policial("Irwin", 10, 5);
 
-        // Estados da Bomba
         boolean bombaPlantada = false;
         boolean bombaDesarmada = false;
-        boolean bombaAcabarRodada = false;
 
-        boolean rodadaParaPlantar = true;
-        boolean rodadaParaDesarmar = false;
+        // Rodadas
+        Scanner scanner = new Scanner(System.in);
+        int contadorRodadas = 0;
+        int rodadas = 0;
+        boolean quantidadeInvalida = true;
+        System.out.println("Quantas rodadas deseja jogar?");
+        while (quantidadeInvalida == true) {
+            rodadas = scanner.nextInt();
+            if (rodadas > 20 || rodadas < 0 || rodadas % 2 == 0) {
+                System.out.println("Quantidade inválida, insira um número impar de 1-20");
+            }
+            if (rodadas < 20 && rodadas > 0 && rodadas % 2 != 0)
+                quantidadeInvalida = false;
+
+        }
 
         // Loop do jogo
         while (true) {
-            var quemMovimenta = gerarNumero.nextInt(2);
-            // Check de Bomba Plantada
-            if (bombaPlantada == true && bombaDesarmada == false && rodadaParaDesarmar == false) {
-                rodadaParaDesarmar = true;
-            } else if (bombaPlantada == true && bombaDesarmada == false && rodadaParaDesarmar == true) {
-                bombaAcabarRodada = true;
-            }
-            // Check de Bomba Desarmada
-            if (bombaDesarmada == true && bombaPlantada == false && rodadaParaPlantar == false) {
-                rodadaParaPlantar = true;
-                System.out.println("Apenas uma rodada para plantar");
-            } else if (bombaDesarmada == true && bombaPlantada == false && rodadaParaPlantar == true) {
-                bombaDesarmada = false;
-            }
-
-            if (bombaAcabarRodada == false)
+            while (true) {
+                var quemMovimenta = gerarNumero.nextInt(2);
                 switch (quemMovimenta) {
                     case 0:
                         // Ações Policial
@@ -90,15 +88,26 @@ public class App {
                         break;
                 }
 
-            // FIM DE JOGO
-            // Bomba
-            if (bombaPlantada == true && bombaDesarmada == true)
+                // FIM DE RODADA
+                // Bomba
+                if (bombaDesarmada == true && bombaPlantada == true)
+                    break;
+                // Um dos personagens sem energia
+                if (terrorista.getEnergia() <= 0 && policial.getEnergia() <= 0)
+                    break;
+            }
+            System.out
+                    .println("\n>--------------<\nFim de Rodada\n>--------------<\n\n");
+            contadorRodadas++;
+            bombaDesarmada = false;
+            bombaPlantada = false;
+            // FIM DE PARTIDA
+            if (contadorRodadas >= rodadas) {
+                System.out.println(
+                        "\n>--------------<\nFim de Partida\n>--------------<\n");
                 break;
-            if (bombaAcabarRodada == true)
-                break;
-            // Um dos personagens sem energia
-            if (terrorista.getEnergia() <= 0 && policial.getEnergia() <= 0)
-                break;
+            }
+
         }
     }
 
