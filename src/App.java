@@ -28,6 +28,12 @@ public class App {
                 quantidadeInvalida = false;
 
         }
+        System.out.println("Qual mapa você deseja jogar?\n1-Fatec Ipiranga\n2-Roma");
+        int mapa = scanner.nextInt();
+        while (mapa != 1 && mapa != 2) {
+            System.out.println("Mapa inválido, insira 1 ou 2");
+            mapa = scanner.nextInt();
+        }
 
         // Loop do jogo
         while (true) {
@@ -40,20 +46,24 @@ public class App {
                         switch (acaoPolicial) {
                             case 0:
                                 policial.desarmarBomba();
+                                printMapa(mapa);
                                 bombaDesarmada = true;
                                 break;
                             case 1:
                                 policial.lancarGranada();
+                                printMapa(mapa);
                                 terrorista.setEnergia(terrorista.getEnergia() - 4);
                                 break;
                             case 2:
                                 policial.atacar();
+                                printMapa(mapa);
                                 int dano = aplicarDano(policial.getArmamento());
                                 terrorista.setEnergia(terrorista.getEnergia() - dano);
                                 break;
                             case 3:
                                 policial.setEnergia(policial.getEnergia() + gerarNumero.nextInt(2) + 1);
                                 policial.passarAVez();
+                                printMapa(mapa);
                                 break;
                         }
                         System.out.println(policial);
@@ -66,20 +76,24 @@ public class App {
                         switch (acaoTerrorista) {
                             case 0:
                                 terrorista.plantarBomba();
+                                printMapa(mapa);
                                 bombaPlantada = true;
                                 break;
                             case 1:
                                 terrorista.lancarGranada();
+                                printMapa(mapa);
                                 policial.setEnergia(policial.getEnergia() - 4);
                                 break;
                             case 2:
                                 terrorista.atacar();
+                                printMapa(mapa);
                                 int dano = aplicarDano(terrorista.getArmamento());
                                 policial.setEnergia(policial.getEnergia() - dano);
                                 break;
                             case 3:
                                 terrorista.setEnergia(terrorista.getEnergia() + gerarNumero.nextInt(2) + 1);
                                 terrorista.passarAVez();
+                                printMapa(mapa);
                                 break;
                         }
                         System.out.println(terrorista);
@@ -122,5 +136,16 @@ public class App {
             dano = 3;
 
         return dano;
+    }
+
+    static void printMapa(int mapa) {
+        switch (mapa) {
+            case 1:
+                System.out.println("no mapa Fatec Ipiranga");
+                break;
+            case 2:
+                System.out.println("no mapa Roma");
+                break;
+        }
     }
 }
